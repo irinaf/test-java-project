@@ -9,9 +9,9 @@ public class ContactCreationSomeFieldEmpty extends TestBase{
 	  @Test
 	  public void testEmptyContact() throws Exception {
 	  
-	    openMainPage();  
-	    gotoContactPage();
-	    ContactData contacts = new ContactData("", "12345666***", "", "8(495)345-25-44", "irina@mail.ru", "12", "-", "-");
+	    app.getNavigationHelper().openMainPage();  
+	    app.getContactHelper().gotoContactPage();
+	   ContactData contacts = new ContactData("", "12345666***", "", "8(495)345-25-44", "irina@mail.ru", "12", "-", "-");
 		
 	 /*  ContactData contacts = new ContactData();
 	    contacts.f_name="";
@@ -24,9 +24,9 @@ public class ContactCreationSomeFieldEmpty extends TestBase{
 	    contacts.b_year="1970";   */
 	    
 	    
-	    fillContactForm(contacts);
-	    submitContact();
-	    gotoHomePage();
+	    app.getContactHelper().fillContactForm(contacts);
+	    app.getContactHelper().submitContact();
+	    app.getContactHelper().gotoHomePage();
 	  }
 	}
 

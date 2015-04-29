@@ -3,9 +3,6 @@ package com.example.tests;
 
 
 
-//import org.junit.*;
-
-
 
 import org.testng.annotations.Test;
 
@@ -13,26 +10,26 @@ import org.testng.annotations.Test;
 	public class GroupCreationTests extends TestBase {
 	  @Test
 	  public void testNonEmptygroupCreation() throws Exception {
-		 openMainPage();
-	     gotoGroupPage();
-	    initGroupCreation();
+		 app.getNavigationHelper().openMainPage();
+	     app.getNavigationHelper().gotoGroupPage();
+	    app.getGroupHelper().initGroupCreation();
 	    GroupData group = new GroupData();
 	    group.name="group name 1";
 	    group.header="header 1";
 	    group.footer="footer 1";
-		fillGroupForm(group);
-	    submitGroupCreation();
-	    returnToGroupPage();
+		app.getGroupHelper().fillGroupForm(group);
+	    app.getGroupHelper().submitGroupCreation();
+	    app.getGroupHelper().returnToGroupPage();
 	  }
 	  
 	  
 	  @Test
 	  public void testEmptygroupCreation() throws Exception {
-		 openMainPage();
-	     gotoGroupPage();
-	    initGroupCreation();
-	    fillGroupForm(new GroupData("", "", ""));
-	    submitGroupCreation();
-	    returnToGroupPage();
+		 app.getNavigationHelper().openMainPage();
+	     app.getNavigationHelper().gotoGroupPage();
+	    app.getGroupHelper().initGroupCreation();
+	    app.getGroupHelper().fillGroupForm( new GroupData("", "", ""));
+	    app.getGroupHelper().submitGroupCreation();
+	    app.getGroupHelper().returnToGroupPage();
 	  }
 	}
