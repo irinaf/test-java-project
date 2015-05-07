@@ -1,35 +1,42 @@
 
+
 package com.example.tests;
 
 
 
+import java.util.*;
 
+import  static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
 
 
 	public class GroupCreationTests extends TestBase {
-	  @Test
-	  public void testNonEmptygroupCreation() throws Exception {
+	 
+			
+		
+	@Test(dataProvider="randomValidGroupGenerator")
+	  public void testGroupCreationWithValidData(GroupData group) throws Exception {
 		 app.getNavigationHelper().openMainPage();
 	     app.getNavigationHelper().gotoGroupPage();
-	    app.getGroupHelper().initGroupCreation();
-	    GroupData group = new GroupData();
-	    group.name="group name 1";
-	    group.header="header 1";
-	    group.footer="footer 1";
+	    
+	     // save old
+	     List<GroupData> oldList=app.getGroupHelper().getGrous();
+	     
+	     //action
+	     app.getGroupHelper().initGroupCreation();
+	    
 		app.getGroupHelper().fillGroupForm(group);
 	    app.getGroupHelper().submitGroupCreation();
 	    app.getGroupHelper().returnToGroupPage();
-	  }
 	  
-	  
-	  @Test
-	  public void testEmptygroupCreation() throws Exception {
-		 app.getNavigationHelper().openMainPage();
-	     app.getNavigationHelper().gotoGroupPage();
-	    app.getGroupHelper().initGroupCreation();
-	    app.getGroupHelper().fillGroupForm( new GroupData("", "", ""));
-	    app.getGroupHelper().submitGroupCreation();
-	    app.getGroupHelper().returnToGroupPage();
+	    // save new
+	     List<GroupData> newList=app.getGroupHelper().getGrous(); 
+	    
+	     //compare
+	     //assertEquals(newList.size(),oldList.size()+1); -проверка на размер
+	     oldList.add(group);
+	    Collections.sort(oldList);
+	    assertEquals(newList,oldList);
 	  }
-	}
+	
+}
