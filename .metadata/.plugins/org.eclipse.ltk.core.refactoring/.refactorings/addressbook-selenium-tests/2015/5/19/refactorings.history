@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;group&apos; from expression &apos;new GroupData(&quot;&quot;,&quot;&quot;,&quot;&quot;)&apos;&#x0D;&#x0A;- Original project: &apos;addressbook-selenium-tests&apos;&#x0D;&#x0A;- Variable name: &apos;group&apos;&#x0D;&#x0A;- Destination method: &apos;com.example.tests.GroupCreationTests.testEmptygroupCreation()&apos;&#x0D;&#x0A;- Variable expression: &apos;new GroupData(&quot;&quot;,&quot;&quot;,&quot;&quot;)&apos;&#x0D;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;group&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;com.example.tests{GroupCreationTests.java" name="group" replace="true" selection="1485 26" stamp="1430988531977" version="1.0"/>
+</session>

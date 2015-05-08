@@ -7,6 +7,7 @@ package com.example.tests;
 import java.util.*;
 
 import  static org.testng.Assert.assertEquals;
+
 import org.testng.annotations.Test;
 
 
@@ -31,12 +32,17 @@ import org.testng.annotations.Test;
 	  
 	    // save new
 	     List<GroupData> newList=app.getGroupHelper().getGrous(); 
+	     
+	   	   
 	    
 	     //compare
 	     //assertEquals(newList.size(),oldList.size()+1); -проверка на размер
 	     oldList.add(group);
+	     
+	    	     
 	    Collections.sort(oldList);
-	    assertEquals(newList,oldList);
+	  	      
+	   assertEquals(newList,oldList);
 	  }
 	
 }

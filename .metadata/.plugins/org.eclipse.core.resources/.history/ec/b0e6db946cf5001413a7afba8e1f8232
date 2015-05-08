@@ -1,0 +1,42 @@
+package com.example.tests;
+
+import static org.testng.Assert.assertEquals;
+
+import java.util.Collections;
+import java.util.List;
+
+import org.testng.annotations.Test;
+
+public class ContactModification extends TestBase{
+
+	@Test
+	public void modifyContact(){
+	
+	app.getNavigationHelper().openMainPage();
+	
+	 // save old
+    List<ContactData> oldList=app.getContactHelper().getContacts();
+	
+	app.getContactHelper().initContactModification(0);   
+	
+	ContactData contacts=new ContactData();
+    contacts.f_name="Îëÿ";
+    contacts.l_name="Ivanova";
+    contacts.b_month="January";
+	
+    app.getContactHelper().fillContactForm(contacts);
+    app.getContactHelper().submitContactModification();
+    app.getContactHelper().gotoHomePage();
+	
+    // save new
+    List<ContactData> newList=app.getContactHelper().getContacts(); 
+    
+    //compare
+	    
+      oldList.remove(0);	 
+      oldList.add(contacts);
+    
+   Collections.sort(oldList);
+   assertEquals(newList,oldList);
+   }
+}	

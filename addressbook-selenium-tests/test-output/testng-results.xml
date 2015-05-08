@@ -1,21 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="5296" started-at="2015-04-29T11:15:32Z" finished-at="2015-04-29T11:15:37Z">
+  <suite name="Default suite" duration-ms="9528" started-at="2015-05-08T10:40:58Z" finished-at="2015-05-08T10:41:07Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="5296" started-at="2015-04-29T11:15:32Z" finished-at="2015-04-29T11:15:37Z">
+    <test name="Default test" duration-ms="9528" started-at="2015-05-08T10:40:58Z" finished-at="2015-05-08T10:41:07Z">
       <class name="com.example.tests.ContactModification">
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.example.tests.ContactModification@c8a3c71]" name="setUp" is-config="true" duration-ms="3524" started-at="2015-04-29T15:15:32Z" finished-at="2015-04-29T15:15:35Z">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.example.tests.ContactModification@109037d]" name="setUp" is-config="true" duration-ms="3392" started-at="2015-05-08T14:40:58Z" finished-at="2015-05-08T14:41:01Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="modifyContact()[pri:0, instance:com.example.tests.ContactModification@c8a3c71]" name="modifyContact" duration-ms="1591" started-at="2015-04-29T15:15:35Z" finished-at="2015-04-29T15:15:37Z">
+        <test-method status="PASS" signature="modifyContact(com.example.tests.ContactData)[pri:0, instance:com.example.tests.ContactModification@109037d]" name="modifyContact" duration-ms="3036" started-at="2015-05-08T14:41:01Z" data-provider="randomValidContactGenerator" finished-at="2015-05-08T14:41:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[ContactData [f_name=, l_name=test1939501777, addr=, phone=test-835547746, e_mail=, b_day=11, b_month=January, b_year=1982]]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- modifyContact -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.example.tests.ContactModification@c8a3c71]" name="tearDown" is-config="true" duration-ms="168" started-at="2015-04-29T15:15:37Z" finished-at="2015-04-29T15:15:37Z">
+        <test-method status="PASS" signature="modifyContact(com.example.tests.ContactData)[pri:0, instance:com.example.tests.ContactModification@109037d]" name="modifyContact" duration-ms="2911" started-at="2015-05-08T14:41:04Z" data-provider="randomValidContactGenerator" finished-at="2015-05-08T14:41:07Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[ContactData [f_name=, l_name=test-1252094685, addr=test-42637529, phone=test207129432, e_mail=, b_day=-, b_month=December, b_year=1980]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- modifyContact -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.example.tests.ContactModification@109037d]" name="tearDown" is-config="true" duration-ms="179" started-at="2015-05-08T14:41:07Z" finished-at="2015-05-08T14:41:07Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
