@@ -1,4 +1,6 @@
 package com.example.tests;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.testng.Assert.assertEquals;
 
 import java.util.Collections;
@@ -7,33 +9,33 @@ import java.util.Random;
 
 import org.testng.annotations.Test;
 
+import com.example.utils.SortedListOf;
+
+
 public class ContactRemover extends TestBase {
 
  @Test
 public void deleteContact(){
 	 
-
-			 app.getNavigationHelper().openMainPage();
 			 
 			 // save old
-		     List<ContactData> oldList=app.getContactHelper().getContacts();
+	 SortedListOf<ContactData> oldList=app.getContactHelper().getContacts();
 		     Random rnd =new Random();
 		     int index= rnd.nextInt(oldList.size()-1);
 		     
 		     app.getContactHelper().deleteContact(index);
-		     app.getContactHelper().gotoHomePage();
+		   
 		     
 		     // save new
-		     List<ContactData> newList=app.getContactHelper().getContacts(); 
+	SortedListOf<ContactData> newList=app.getContactHelper().getContacts(); 
 		     
 		     //compare
 			    
-		       oldList.remove(index);	           	     
-		     
-		    Collections.sort(oldList);
-		    assertEquals(newList,oldList);
+		  /*  oldList.remove(index);	           	     
+		     Collections.sort(oldList);
+		    assertEquals(newList,oldList); */ 
 		
-		    
+		     assertThat(newList,equalTo(oldList.without(index)));
 			 
 		 }
 

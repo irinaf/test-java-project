@@ -3,12 +3,13 @@
 package com.example.tests;
 
 
-
-import java.util.*;
-
-import  static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 import org.testng.annotations.Test;
+
+import com.example.fw.GroupHelper;
+import com.example.utils.SortedListOf;
 
 
 	public class GroupCreationTests extends TestBase {
@@ -16,33 +17,29 @@ import org.testng.annotations.Test;
 			
 		
 	@Test(dataProvider="randomValidGroupGenerator")
-	  public void testGroupCreationWithValidData(GroupData group) throws Exception {
-		 app.getNavigationHelper().openMainPage();
-	     app.getNavigationHelper().gotoGroupPage();
-	    
+	public void testGroupCreationWithValidData(GroupData group) throws Exception {
+		 	       
 	     // save old
-	     List<GroupData> oldList=app.getGroupHelper().getGrous();
+	    
+	     SortedListOf<GroupData> oldList=app.getGroupHelper().getGrous();
 	     
 	     //action
-	     app.getGroupHelper().initGroupCreation();
-	    
-		app.getGroupHelper().fillGroupForm(group);
-	    app.getGroupHelper().submitGroupCreation();
-	    app.getGroupHelper().returnToGroupPage();
+	    app.getGroupHelper().createGroup(group);
+		
 	  
 	    // save new
-	     List<GroupData> newList=app.getGroupHelper().getGrous(); 
+	    SortedListOf<GroupData> newList=app.getGroupHelper().getGrous();
 	     
 	   	   
 	    
 	     //compare
 	     //assertEquals(newList.size(),oldList.size()+1); -проверка на размер
-	     oldList.add(group);
-	     
-	    	     
-	    Collections.sort(oldList);
-	  	      
-	   assertEquals(newList,oldList);
+	    
+	  	    
+	    assertThat(newList,equalTo(oldList.withAdded(group)));
+	   /* oldList.add(group);	    	  	     
+	     Collections.sort(oldList);	   	      
+	   assertEquals(newList,oldList); */
 	  }
 	
 }
