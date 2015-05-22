@@ -8,6 +8,8 @@ import java.util.List;
 
 
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -150,7 +152,12 @@ public ContactHelper modifySomeContact(int index, ContactData contacts){
 		  
 	  }
 	  else {
-		  if (driver.findElements(By.name("new_group" )).size()!=0)
+		  driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+	      boolean result = driver.findElements(By.name("new_group" )).size() > 0;
+	      driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	      if (result)
+		   
+		  //if (driver.findElements(By.name("new_group" )).size()!=0)
 			  throw new Error ("Group selector exists in contact modification form");
 	  }
 	  
@@ -160,7 +167,7 @@ public ContactHelper modifySomeContact(int index, ContactData contacts){
 	
 	public ContactHelper submitContact() {
 		click(By.name("submit"));
-		cachedContacts=null;
+		//cachedContacts=null;
 		return this;
 	}
 
@@ -213,8 +220,7 @@ public ContactHelper modifySomeContact(int index, ContactData contacts){
 	}
 
 	public ContactHelper initContactModification(int index) {
-		//selectContactByIndex(index);
-		 selectContactById(index, cachedContacts); 
+		selectContactByIndex(index);
 		return this;
 		
 		

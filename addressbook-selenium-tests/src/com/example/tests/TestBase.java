@@ -1,11 +1,14 @@
 package com.example.tests;
 
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.Random;
 
 import org.testng.annotations.AfterTest;
@@ -14,6 +17,9 @@ import org.testng.annotations.DataProvider;
 
 import com.example.fw.ApplicationManager;
 
+import static com.example.tests.GroupDataGenerator.generateRandomGroups;
+
+
 public class TestBase {
 
 	protected ApplicationManager app;
@@ -21,7 +27,9 @@ public class TestBase {
 
 	@BeforeTest
 		public void setUp() throws Exception {
-	    app=new ApplicationManager();
+	    Properties properties = new Properties();
+	    properties.load(new FileReader (new File( "application.properties")) );
+		app=new ApplicationManager(properties);
 		
 	  }
 
@@ -34,34 +42,35 @@ public class TestBase {
 	
 	@DataProvider
 	public Iterator<Object[]> randomValidGroupGenerator(){
-		List<Object[]>list= new ArrayList<Object[]>();
-	 		
-		for( int i =0;i<3;i++){
-			GroupData group = new GroupData()
-			.withName(generateRandomString())	
-			.withHeader(generateRandomString())
-			.withFooter(generateRandomString());
-			/*group.name=generateRandomString();							
-			group.header=generateRandomString();
-			group.footer=generateRandomString(); */
-			list.add(new Object[]{group});
-		}
-			
-		return list.iterator();
+		return wrapGroupsForDataProvider(generateRandomGroups(5)).iterator();
 	}
 	
 
-	public String generateRandomString(){
-		
-		Random rnd =new Random();
-		if(rnd.nextInt(3)==0){
-			return"";
+	public static List<Object[]> wrapGroupsForDataProvider(List<GroupData> groups) {
+
+		List<Object[]>list= new ArrayList<Object[]>();
+		for(GroupData group: groups){
+			list.add(new Object[]{group});
 		}
 		
-		else return "test"+ rnd.nextInt();
-		
+		return list;
 	}
 
+	
+
+	public static List<Object[]> wrapContactsForDataProvider(List<ContactData> contacts) {
+
+	    List<Object[]>list= new ArrayList<Object[]>();
+		for(ContactData contact: contacts){
+			list.add(new Object[]{contact});
+		}
+		
+		return list;
+	}
+	
+	
+	
+	
 
 	
 public String generateRandomDay(){
@@ -92,7 +101,7 @@ public String generateRandomYear(){
 	 return "198"+ rnd.nextInt(3);
 }
 
-public Calendar generateRandomDate(){
+/*public Calendar generateRandomDate(){
 
 GregorianCalendar gc = new GregorianCalendar();
    int year = randBetween(2000, 2015);
@@ -106,12 +115,23 @@ public static int randBetween(int start, int end) {
 return start + (int)Math.round(Math.random() * (end - start));
 }
 
+*/
 
 
+public static String generateRandomString(){
+	
+	Random rnd =new Random();
+	if(rnd.nextInt(3)==0){
+		return"";
+	}
+	
+	else return "test"+ rnd.nextInt();
+	
+ }
 
 
 	
-	@DataProvider
+/*	@DataProvider
 	public Iterator<Object[]> randomValidContactGenerator(){
 		List<Object[]>list= new ArrayList<Object[]>();
 	 		
@@ -132,7 +152,7 @@ return start + (int)Math.round(Math.random() * (end - start));
 		return list.iterator();
 	}
 
-
+        */
 	
 	
 }
