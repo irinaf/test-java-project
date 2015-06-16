@@ -19,15 +19,26 @@ public void deleteContact(){
 	 
 			 
 			 // save old
-	 SortedListOf<ContactData> oldList=app.getContactHelper().getContacts();
-		     Random rnd =new Random();
+	// SortedListOf<ContactData> oldList=app.getContactHelper().getContacts();
+	 
+	  SortedListOf<ContactData> oldList= 
+	  		 new SortedListOf<ContactData>( app.getHibernateHelper().listContacts());
+
+	  Random rnd =new Random();
 		     int index= rnd.nextInt(oldList.size()-1);
+		  
+		   
+	     
 		     
-		     app.getContactHelper().deleteContact(index);
+		     //app.getContactHelper().getContacts();
+		     app.getContactHelper().deleteContact(index,oldList);
 		   
 		     
 		     // save new
-	SortedListOf<ContactData> newList=app.getContactHelper().getContacts(); 
+	//SortedListOf<ContactData> newList=app.getContactHelper().getContacts();
+		    
+		     SortedListOf<ContactData> newList= 
+		    		 new SortedListOf<ContactData>( app.getHibernateHelper().listContacts());  
 		     
 		     //compare
 			    
@@ -36,6 +47,13 @@ public void deleteContact(){
 		    assertEquals(newList,oldList); */ 
 		
 		     assertThat(newList,equalTo(oldList.without(index)));
+		     
+		     
+		     if("yes".equals(app.getProperty("check.ui"))){
+		    	   	  assertThat(app.getContactHelper().getContacts(),equalTo(app.getHibernateHelper().listContacts()));
+		    	 }
+		    
+		     
 			 
 		 }
 

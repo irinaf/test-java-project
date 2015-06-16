@@ -1,0 +1,22 @@
+<list>
+  <contact>
+    <f__name></f__name>
+    <l__name></l__name>
+    <addr>test-258650515</addr>
+    <phone>test1328958487</phone>
+    <e__mail>test-1625047943</e__mail>
+    <b__day>20</b__day>
+    <b__month>May</b__month>
+    <b__year>2014</b__year>
+  </contact>
+  <contact>
+    <f__name></f__name>
+    <l__name>test2130136069</l__name>
+    <addr></addr>
+    <phone>test1051862787</phone>
+    <e__mail>test292545815</e__mail>
+    <b__day>1</b__day>
+    <b__month>November</b__month>
+    <b__year>2012</b__year>
+  </contact>
+</list>

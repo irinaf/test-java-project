@@ -23,7 +23,9 @@ public void modifySomeGroup(GroupData group)
 	     app.navigateTo().groupsPage();
 	     
 	     // save old
-	     SortedListOf<GroupData> oldList=app.getGroupHelper().getGrous();
+	     //SortedListOf<GroupData> oldList=app.getGroupHelper().getGrous();
+	     
+	     SortedListOf<GroupData> oldList=app.getGroupHelper().getUiGroups();
 	     
 	     Random rnd =new Random();
 	     int index=rnd.nextInt(oldList.size()-1);
@@ -40,8 +42,10 @@ public void modifySomeGroup(GroupData group)
 	     app.getGroupHelper().returnToGroupPage();*/
 		 
 	     // save new
-	     SortedListOf<GroupData> newList=app.getGroupHelper().getGrous(); 
-	    
+	    // SortedListOf<GroupData> newList=app.getGroupHelper().getGrous(); 
+	     
+	     SortedListOf<GroupData> newList=app.getGroupHelper().getUiGroups();
+	     
 	     assertThat(newList,equalTo(oldList.without(index).withAdded(group)));
 	     
 	     //compare

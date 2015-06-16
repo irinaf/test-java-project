@@ -105,6 +105,8 @@ public class ContactData implements Comparable <ContactData> {
 	}
 	
 
+	
+	
 	public ContactData withFirstName(String f_name) {
 		this.f_name = f_name;
 		return this;
@@ -187,6 +189,51 @@ public class ContactData implements Comparable <ContactData> {
 
 	public String getB_year() {
 		return b_year;
+	}
+
+
+	public void setF_name(String f_name) {
+		this.f_name = f_name;
+	}
+
+
+	public void setL_name(String l_name) {
+		this.l_name = l_name;
+	}
+
+
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+	public void setE_mail(String e_mail) {
+		this.e_mail = e_mail;
+	}
+
+
+	public void setB_day(String b_day) {
+		this.b_day = b_day;
+	}
+
+
+	public void setB_month(String b_month) {
+		this.b_month = b_month;
+	}
+
+
+	public void setB_year(String b_year) {
+		this.b_year = b_year;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 

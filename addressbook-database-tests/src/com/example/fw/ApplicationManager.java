@@ -26,12 +26,14 @@ public class ApplicationManager {
 	private ContactHelper contactHelper;
 	private Properties properties;
 	private HibernateHelper hibernateHelper;
+	private ApplicationModel model;
 	
 	
 	public ApplicationManager(Properties properties) {
 		
 		this.properties = properties;
-		
+		model= new ApplicationModel();
+		model.setGroups(getHibernateHelper().listGroups());
 	    
 	}
 	
@@ -43,6 +45,9 @@ public class ApplicationManager {
 		
 	}
 
+	public ApplicationModel getModel(){
+		return model;
+	}
 	
 	public NavigationHelper navigateTo(){
 		
@@ -102,7 +107,7 @@ public class ApplicationManager {
 		else throw new Error("Unsupported brouser " +brouser);
 		
 	   baseUrl=properties.getProperty("baseUrl");
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 		   driver.get(baseUrl);
 	  	
    }
@@ -110,5 +115,7 @@ public class ApplicationManager {
   }
 
 
-	
+	public String getProperty(String key){
+		return properties.getProperty(key);
+	}
 }

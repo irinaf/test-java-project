@@ -43,7 +43,10 @@ import com.example.utils.SortedListOf;
 	   
 	    
 	    // save old
-	     SortedListOf<ContactData> oldList=app.getContactHelper().getContacts();
+	   //  SortedListOf<ContactData> oldList=app.getContactHelper().getContacts();
+			
+			  SortedListOf<ContactData> oldList= 
+			  		 new SortedListOf<ContactData>( app.getHibernateHelper().listContacts());
 		
 	  /*  ContactData contacts = new ContactData();
 	    contacts.f_name="IRINA";
@@ -68,20 +71,31 @@ import com.example.utils.SortedListOf;
 	    
 	
 	    // save new
-	     SortedListOf<ContactData> newList=app.getContactHelper().getContacts(); 
 	    
-	     //compare  
+	    
+	    	 SortedListOf<ContactData> newList= 
+	    		 new SortedListOf<ContactData>( app.getHibernateHelper().listContacts());     
+       	 
+	   	 //compare  
+	  
+	    	 assertThat(newList,equalTo(oldList.withAdded(contacts)));
+	     
+	      
+	   
 	               
 	     //assertEquals(newList.size(),oldList.size()+1); 
 	     
-	    
-	
-	     assertThat(newList,equalTo(oldList.withAdded(contacts)));
 	     /*oldList.add(contacts); 
 	    Collections.sort(oldList);
 	    assertEquals(newList,oldList); */
 	
 	
+	    	 
+		     if("yes".equals(app.getProperty("check.ui"))){
+		    	   	  assertThat(app.getContactHelper().getContacts(),equalTo(app.getHibernateHelper().listContacts()));
+		    	 }
+		    
+	    	 
 	    
 	  }
 

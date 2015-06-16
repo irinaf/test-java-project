@@ -1,8 +1,9 @@
 package com.example.fw;
 
 
+import static org.junit.Assert.assertThat;
 import java.util.List;
-
+import static org.hamcrest.Matchers.equalTo;
 
 
 
@@ -102,9 +103,10 @@ public class ContactHelper extends WebDriverHelperBase {
 	
 	
 	
-public  ContactHelper deleteContact(int index) {
+public  ContactHelper deleteContact(int index, SortedListOf<ContactData> oldList) {
 		
-	    selectContactById(index, cachedContacts); 
+	    selectContactById(index, oldList);
+	   //selectContactById(index, cachedContacts); 
 	   //selectContactByIndex(index);
 		submitContactDeletion();
 		gotoHomePage();
@@ -115,8 +117,9 @@ public  ContactHelper deleteContact(int index) {
 
 
 
-public ContactHelper modifySomeContact(int index, ContactData contacts){
+public ContactHelper modifySomeContact(int index, ContactData contacts, ContactData contactbyindex){
 	initContactModification(index) ;  
+	compareFields(contactbyindex);
 	fillContactForm(contacts,MODIFICATION);
 	submitContactModification();
 	gotoHomePage();
@@ -126,7 +129,31 @@ public ContactHelper modifySomeContact(int index, ContactData contacts){
 
 //--------------------------------------------------------------------------------------------	
 	
-	public ContactHelper initContactCeation() {
+	
+
+private ContactHelper compareFields(ContactData contactbyindex) {
+	
+	
+	assertThat(contactbyindex.getF_name(),equalTo(driver.findElement(By.name("firstname")).getAttribute("value")));
+	assertThat(contactbyindex.getL_name(),equalTo(driver.findElement(By.name("lastname")).getAttribute("value")));
+	assertThat(contactbyindex.getAddr(),equalTo(driver.findElement(By.name("address")).getAttribute("value")));
+	assertThat(contactbyindex.getPhone(),equalTo(driver.findElement(By.name("home")).getAttribute("value")));
+	assertThat(contactbyindex.getE_mail(),equalTo(driver.findElement(By.name("email")).getAttribute("value")));
+	if(contactbyindex.getB_day().equals("0")) assertThat("-",equalTo(driver.findElement(By.xpath(".//*[@name='bday']/option[1]")).getText()));
+	else assertThat(contactbyindex.getB_day(),equalTo(driver.findElement(By.xpath(".//*[@name='bday']/option[1]")).getText()));
+	if(contactbyindex.getB_month().equals("0")) assertThat("-",equalTo(driver.findElement(By.xpath(".//*[@name='bmonth']/option[1]")).getText()));
+	else assertThat(contactbyindex.getB_month(),equalTo(driver.findElement(By.xpath(".//*[@name='bmonth']/option[1]")).getText()));
+	assertThat(contactbyindex.getB_year(),equalTo(driver.findElement(By.name("byear")).getAttribute("value")));
+	
+		
+		
+	
+	return this;
+}
+
+
+
+  public ContactHelper initContactCeation() {
 		click(By.linkText("add new"));
 		return this;
 	}

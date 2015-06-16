@@ -39,27 +39,52 @@ import com.example.utils.SortedListOf;
 		 	       
 	     // save old
 	    
-	     SortedListOf<GroupData> oldList= 
-	    		 new SortedListOf<GroupData>( app.getHibernateHelper().listGroups());
+	   /*  SortedListOf<GroupData> oldList= 
+	    		 new SortedListOf<GroupData>( app.getHibernateHelper().listGroups()); */
+			
+			
+			SortedListOf<GroupData> oldList= 
+		    		 new SortedListOf<GroupData>( app.getModel().getGroups());			
+			
+	    
 	     
 	     //action
 	    app.getGroupHelper().createGroup(group);
 		
 	  
 	    // save new
-	    SortedListOf<GroupData> newList=
-	    		 new SortedListOf<GroupData>( app.getHibernateHelper().listGroups());
-	     
-	   	   
+	  /*  SortedListOf<GroupData> newList=
+	    		 new SortedListOf<GroupData>( app.getHibernateHelper().listGroups()); */
 	    
-	     //compare
+	    SortedListOf<GroupData> newList=
+	    		 new SortedListOf<GroupData>( app.getModel().getGroups());
+	    
+	   
+	    
+	     //compare states
 	     //assertEquals(newList.size(),oldList.size()+1); -проверка на размер
 	    
-	  	    
+	
+	     
+	    
+	   // System.out.println ("OLD2  " + oldList); 
+	    
 	    assertThat(newList,equalTo(oldList.withAdded(group)));
-	   /* oldList.add(group);	    	  	     
+	    
+
+	    
+	    //compare model to implementation
+	    if (wantToCheck()){
+	    if("yes".equals(app.getProperty("check.db")))
+	    		  assertThat(app.getModel().getGroups(),equalTo(app.getHibernateHelper().listGroups()));	 
+	    
+         
+	    if("yes".equals(app.getProperty("check.ui")))
+	    	      assertThat(app.getModel().getGroups(),equalTo(app.getGroupHelper().getUiGroups()));
+	    /* oldList.add(group);	    	  	     
 	     Collections.sort(oldList);	   	      
 	   assertEquals(newList,oldList); */
-	  }
-	
+	 
+	      }
+	}
 }

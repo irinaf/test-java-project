@@ -17,7 +17,7 @@ public class GroupHelper extends WebDriverHelperBase {
 	}
 
 	
-	private SortedListOf<GroupData> cachedGroups; 
+/*	private SortedListOf<GroupData> cachedGroups; 
 	
 	public SortedListOf<GroupData> getGrous() {
 		
@@ -43,7 +43,23 @@ public class GroupHelper extends WebDriverHelperBase {
 	}
 		
 }
-
+  */
+	
+	public SortedListOf<GroupData>  getUiGroups() {
+		//ListOf<GroupData> cachedGroups= new ArrayList<GroupData>();	
+		SortedListOf<GroupData> groups=new SortedListOf<GroupData>();	
+		manager.navigateTo().groupsPage();
+		List<WebElement> checkboxes=driver.findElements(By.name("selected[]"));
+	for(WebElement checkbox: checkboxes)
+	{
+		
+		String title= checkbox.getAttribute("title");
+		String name=title.substring("Select (".length(),title.length()-")".length());
+		groups.add(new GroupData().withName(name));
+		
+	}
+		return groups;
+}
 
 	public GroupHelper createGroup(GroupData group) {
 		  manager.navigateTo().groupsPage();
@@ -51,7 +67,9 @@ public class GroupHelper extends WebDriverHelperBase {
 		  fillGroupForm(group);
 	      submitGroupCreation();
 	      returnToGroupPage();
-	      rebuildCache();
+	     //update model;
+	      manager.getModel().addGroup(group);
+	     // rebuildCache();
 	      return this;
 		
 	}
@@ -61,7 +79,8 @@ public class GroupHelper extends WebDriverHelperBase {
 		selectGroupByIndex(index);
 		submitGroupDeletion();
 		returnToGroupPage();
-		rebuildCache();
+		 manager.getModel().removeGroup(index);
+		//rebuildCache();
 		return this;
 		
 	}
@@ -74,8 +93,10 @@ public class GroupHelper extends WebDriverHelperBase {
 	      fillGroupForm(group);
 	      submitGroupModification();
 	      returnToGroupPage();
-	      rebuildCache();
-		  return this;
+	      manager.getModel().removeGroup(index).addGroup(group);
+	      //     rebuildCache();
+	
+	      return this;
 	}
 	//----------------------------------------------------------------------
 	
@@ -94,14 +115,14 @@ public class GroupHelper extends WebDriverHelperBase {
 
 	public GroupHelper submitGroupCreation() {
 		click(By.name("submit"));
-		cachedGroups=null;
+		//cachedGroups=null;
 		return this;
 		
 	}
 
 	private void submitGroupDeletion() {
 		click(By.name("delete"));
-		cachedGroups=null;
+		//cachedGroups=null;
 	}
 	public GroupHelper returnToGroupPage() {
 		click(By.linkText("group page"));
@@ -125,7 +146,7 @@ public class GroupHelper extends WebDriverHelperBase {
 	public GroupHelper submitGroupModification() {
 		
 		click(By.name("update"));
-		cachedGroups=null;
+		//cachedGroups=null;
 		return this;
 	}
 

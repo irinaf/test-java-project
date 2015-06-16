@@ -21,7 +21,7 @@ public class ContactModification extends TestBase{
 
 	@DataProvider
 	public Iterator<Object[]>contactsFromFile() throws IOException{
-		return wrapContactsForDataProvider(loadContactsFromXmlFile (new File("contact.xml"))).iterator();
+		return wrapContactsForDataProvider(loadContactsFromXmlFile (new File("contacts.xml"))).iterator();
 	}
 	
 	//@Test(dataProvider="randomValidContactGenerator")
@@ -30,11 +30,17 @@ public class ContactModification extends TestBase{
 	
 
 	 // save old
-	 SortedListOf<ContactData> oldList=app.getContactHelper().getContacts();
+	// SortedListOf<ContactData> oldList=app.getContactHelper().getContacts();
+		 SortedListOf<ContactData> oldList= 
+		  		 new SortedListOf<ContactData>( app.getHibernateHelper().listContacts());
+		
     Random rnd =new Random();
     int index= rnd.nextInt(oldList.size()-1);
 	
-	app.getContactHelper().modifySomeContact(index,contacts);
+    ContactData contactbyindex=oldList.get(index);
+
+    
+    app.getContactHelper().modifySomeContact(index,contacts,contactbyindex);
     
     /*app.getContactHelper()
 	 .initContactModification(index)   
@@ -51,7 +57,11 @@ public class ContactModification extends TestBase{
    
 	
     // save new
-	 SortedListOf<ContactData> newList=app.getContactHelper().getContacts(); 
+	// SortedListOf<ContactData> newList=app.getContactHelper().getContacts(); 
+    
+    SortedListOf<ContactData> newList= 
+	  		 new SortedListOf<ContactData>( app.getHibernateHelper().listContacts());
+    
     
     //compare
 	    
@@ -59,8 +69,14 @@ public class ContactModification extends TestBase{
       oldList.add(contacts);
       Collections.sort(oldList);
       assertEquals(newList,oldList);  */
+    	 
+	 assertThat(newList,equalTo(oldList.without(index).withAdded(contacts)));
+	 
+ 
+     if("yes".equals(app.getProperty("check.ui"))){
+    	   	  assertThat(app.getContactHelper().getContacts(),equalTo(app.getHibernateHelper().listContacts()));
+    	 }
     
 	 
-	 assertThat(newList,equalTo(oldList.without(index).withAdded(contacts)));
    }
 }	
