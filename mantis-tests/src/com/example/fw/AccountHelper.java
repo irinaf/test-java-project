@@ -16,12 +16,9 @@ public class AccountHelper extends WebDriverHelperBase {
 
 	public void signup(User user)  {
 		manager.openUrl("/");
-		
-		//click(By.cssSelector("span.bracket-link"));
-		
-		driver.findElement(By.linkText("Signup for a new account")).click();
-		
-				
+		click(By.xpath("//span[1]/a"));
+		//driver.findElement(By.linkText("Signup for a new account")).click();
+						
 		type(By.name("username"),user.login);
 		type(By.name("email"),user.email);
 	    click(By.cssSelector("input.button"));
@@ -65,8 +62,30 @@ public class AccountHelper extends WebDriverHelperBase {
 		type(By.name("username"),user.login);
 		type(By.name("password"),user.password);
 		click(By.cssSelector("input.button"));
+					
+	}
+
+	
+	public void logout() {
 		
+		//driver.findElement(By.linkText("Logout")).click();
+		click(By.linkText("Logout"));
+	}
+	
+	public int manageUsers(User user) {
+				
+		/* driver.findElement(By.linkText("Manage Users")).click();
+		 driver.findElement(By.linkText(user.login)).click();
+		 driver.findElement(By.xpath("//input[@value='Delete User']")).click();
+		 driver.findElement(By.cssSelector("input.button")).click(); 
+		 return  driver.findElements(By.linkText(user.login)).size();*/
+		click(By.xpath("//span[1]/a"));
+		click(By.linkText(user.login));
+		click(By.xpath("//input[@value='Delete User']"));
+		click(By.cssSelector("input.button"));
+		return driver.findElements(By.linkText(user.login)).size();
+	}
 		
 	}
 
-}
+

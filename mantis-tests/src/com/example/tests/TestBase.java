@@ -11,6 +11,7 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.Random;
 
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;

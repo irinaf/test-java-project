@@ -2,6 +2,7 @@ package com.example.tests;
 
 import static org.testng.Assert.*;
 
+import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
 import com.example.fw.AccountHelper;
@@ -13,8 +14,8 @@ import static org.hamcrest.Matchers.*;
 
 public class SignupTest extends TestBase {
 	
-		public User user = new User().setLogin("testuser1").setPassword("123456")
-	.setEmail("testuser1@localhost");
+		public User user = new User().setLogin("testuser2").setPassword("123456")
+	.setEmail("testuser2@localhost");
 		private JamesHelper james;
 		private AccountHelper accHelper;
 	
@@ -25,7 +26,7 @@ public class SignupTest extends TestBase {
 		if(!james.doesUserExist(user.login)){
 		james.createUser(user.login,user.password);
 		}
-	}
+	} 
 	
  @AfterClass
 	public void deleteMailUser(){
@@ -36,7 +37,7 @@ public class SignupTest extends TestBase {
 		
 	@Test
 	public void newUserShouldSignUp()  {
-		
+				
 		accHelper.signup( user);
 		accHelper.login(user);
 		assertThat(accHelper.loggedUser(user),equalTo(user.login));
@@ -44,9 +45,10 @@ public class SignupTest extends TestBase {
 	}
 	
 	
-	//@Test
+	@Test (dependsOnMethods = { "newUserShouldSignUp" })
 	public void existingUserShouldNoSignUp()  {
-	
+	  
+		accHelper.logout();
 		try{
 		   accHelper.signup( user);
 		} catch(Exception e) {
@@ -59,4 +61,15 @@ public class SignupTest extends TestBase {
 		
 	}
  
+	@Test (dependsOnMethods = { "existingUserShouldNoSignUp" })
+
+	public void deleteUserfromDB() {
+		
+		//accHelper.logout();
+		User admin = new User().setLogin("administrator").setPassword("root");
+		accHelper.login(admin);
+		assertThat(accHelper.manageUsers(user),equalTo(0));
+		
+	}
+	
 }
